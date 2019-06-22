@@ -1,12 +1,12 @@
-# kene-touhou-mohofu
-Mod of the PSP kene-touhou-mohofu homebrew
+# Touhou-Mohofu-PSP-Mod
 
-##Requirements
-One needs the minimal PSP SDK installed and path setted correctly(otherwise will use default values which might not work)
-PSPDEV: path to the min sdk
-PSPDSK: PSPDEV/psp/sdk/
+Mod of Touhou Mohofu r40 that's designed to translate and modernize the homebrew.
+How to compile
+
+Minimal PSPSDK Required Makefile Directory Values corrected to match your current PSPSDK directory
 
 rm and mkdir needs also to be setted in the Path.
-###Usage
+
+# Usage
 
 Run make and copy EBOOT.PBP and the folder data to the path where you want to execute your homebrew, as simple as that!
