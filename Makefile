@@ -40,8 +40,8 @@ USE_EBOOT_TITLE = 1
 # 1 == pspsdk-setup-0.11.1.exe を使う。( Minimalist PSP homebrew SDK for Windows. version 0.11.1 )。
 # 1 == pspsdk-setup-0.11.2r2.exe(2011-05-18) を使う。
 #// まだ未検証 1 == pspsdk-setup-0.11.2r3.exe(2011-06-01) を使う。
-USE_MINIMALIST_PSP_SDK = 1
-#USE_MINIMALIST_PSP_SDK = 0
+#USE_MINIMALIST_PSP_SDK = 1
+USE_MINIMALIST_PSP_SDK = 0
 
 
 # r34から Minimalist PSP homebrew SDK for Windows.(以下minimalist) へ対応しました。
@@ -106,10 +106,10 @@ else
 	# 1 == 署名版(cfw5.00m33-6 では ok だった)
 	# 公式FWで起動出来るように署名を付加する。
 	## 暗号化する。
-	ENCRYPT = 1
+	#ENCRYPT = 1
 	# (???)EBOOT.PBPじゃなくて、*.prxをビルトする。(ENCRYPT = 1の場合必ず必要???)
 	## PRXでビルトする。(EBOOT.PBPでビルトしない)
-	BUILD_PRX = 1
+	#BUILD_PRX = 1
 	# src/game_core/bootmain.cで利用する。
 	CORE_CFLAGS += -DAPP_SYOMEI_OFW=1
 endif
@@ -1190,6 +1190,7 @@ CP = cp
 MV = mv
 # archiver ア－カイバ(C言語などのコンパイルした.objファイルをライブラリ.aファイルに纏めたり分解したりするツール。ファイル圧縮は一切しない)
 #435ではbuild.mak内にある。(psp-ar)AR = ar
+MKDIR = mkdir
 else
 # pspsdk-setup-0.11.1
 #Minimalist PSP homebrew SDK for Windows.(以下Minimalistと略)
