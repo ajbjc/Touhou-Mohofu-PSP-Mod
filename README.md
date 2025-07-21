@@ -18,4 +18,4 @@ Copy the data folder and the newly built EBOOT.PBP file to the PSP/GAME folder i
 
 When running in PPSSPP, under the Graphics settings, set Backend to OpenGL, and turn Software rendering on, otherwise many of the assets will not appear.
 
-When running on a real PSP, a bright, glitchy looking screen will appear for about a second before the game loads. I am not sure what causes this.
+When running on a real PSP, a bright, glitchy looking screen will appear for about a second before the game loads. I am not sure what causes this. Make sure to check the Makefile configuration to make sure it's setup for your PSP and firmware.
