@@ -106,10 +106,10 @@ else
 	# 1 == signed version (worked ok with cfw5.00m33-6)
 	# Add a signature so it can be started with the official FW.
 	## Encrypt.
-	#ENCRYPT = 1
+	ENCRYPT = 1
 	# (???) Build *.prx instead of EBOOT.PBP. (Required if ENCRYPT = 1???)
 	## Build with PRX. (Do not build with EBOOT.PBP)
-	#BUILD_PRX = 1
+	BUILD_PRX = 1
 	# Use in src/game_core/bootmain.c.
 	CORE_CFLAGS += -DAPP_SYOMEI_OFW=1
 endif
@@ -288,10 +288,14 @@ EXTRA_TARGETS		 = mk_dir EBOOT.PBP
 
 ifneq ($(USE_MINIMALIST_PSP_SDK),1)
 # Regular development (cygwin)
+CFLAGS += -finput-charset=cp932
+CFLAGS += -fexec-charset=cp932
 PSPDEV = $(shell psp-config --pspdev-path)
 PSPSDK = $(shell psp-config --pspsdk-path)
 else
 # pspsdk-setup-0.11.1
+CFLAGS += -finput-charset=cp932
+CFLAGS += -fexec-charset=cp932
 PSPDEV = C:/pspsdk/
 PSPSDK = C:/pspsdk/psp/sdk/
 endif
@@ -833,7 +837,7 @@ CFLAGS += -falign-jumps
 
 
 
-CFLAGS += -Wall
+# CFLAGS += -Wall
 	# Print all warnings if any.
 	# In the 模倣風, it uses -Werror, so warnings are treated as errors and compilation is immediately stopped.
 
@@ -898,8 +902,9 @@ CFLAGS += -std=gnu99
 CFLAGS += -Wsign-compare
 
 
-
-CFLAGS += -Wunused
+CFLAGS += -Wno-stringop-overflow
+CFLAGS += -Wno-format-overflow
+#CFLAGS += -Wunused
 CFLAGS += -Wpointer-arith
 CFLAGS += -Wundef
 CFLAGS += -Wformat
