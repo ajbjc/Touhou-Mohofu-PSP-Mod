@@ -65,45 +65,45 @@ static void music_room_draw_message(unsigned int cursor1, unsigned int cursor2)
 	{
 		//								"-------------------------------------"
 		//	"SOUND 解説",				"BGM 解説", 								"-------------------------------------"
-		{	"ショット", 				"曲を止めます", 							"弾には無音も良いですよね。",					},/* */
-		{	"メニュー決定", 			"No.1 春の湊に",							"1面のテーマです。",							},/* */
-		{	"メニュー選択", 			"No.2 ロマンティック・チルドレン",			"2面のテーマです。",							},/* */
-		{	"ボス退場", 				"No.3 ヴォヤージュ1969",					"3面のテーマです。",							},/* */
-		{	"ピチューン",				"No.4 フォールオブフォール ～ 秋めく滝",	"4面のテーマです。",							},/* */
-		{	"アイテム取得", 			"No.5 ヴアル魔法図書館",					"5面のテーマです。",							},/* */
-		{	"増えた",					"No.6 メイドと血の懐中時計",				"6面のテーマです。",							},/* */
-		{	"自分カード",				"No.7 童祭 ～ Innocent Treasures",			"スタッフロールのテーマです。", 				},/* */ 	// 夢違科学世紀「童祭 Innocent Treasures」
-		{	"ザコ倒した",				"No.8 ルーネイトエルフ",					"道中曲です。", 								},/* */
-		{	"グレイズ", 				"No.9 遠野幻想物語",						"道中曲です。", 								},/* */
-		{	"時間制限", 				"No.10 上海紅茶館  ～ Chinese Tea", 		"道中曲です。", 								},/* */
-		{	"キラリン☆",				"No.11 人形裁判 ～ 人の形弄びし少女",		"アリス・マーガトロイドのテーマです。", 		},/* */
-		{	"ボスショット1",			"No.12 コンプリート・ダークネス",			"魅魔のテーマです。",							},/* */ 	// Complete Darkness
-		{	"ボスショット2",			"No.13 竹取飛翔 ～ Lunatic Princess",		"蓬莱山 輝夜のテーマです。",					},/* */
-		{	"ボスショット3",			"No.14 風神少女",							"射命丸 文のテーマです。",						},/* */
-		{	"ボスショット4",			"No.15 ラクトガール ～ 少女密室",			"パチュリー・ノーレッジのテーマです。", 		},/* */
-		{	"ボスショット5",			"No.16 月時計 ～ ルナ・ダイアル",			"十六夜 咲夜のテーマです。",					},/* */
-		{	"ボス溜め1",				"No.17 おてんば恋娘",						"チルノのテーマです。", 						},/* */
-		{	""/*"未使用18音"*/, 		"No.18 グリモア オブ アリス",				"アリス・マーガトロイドのテーマです。", 		},/* */ 	// Grimoire of Alice
-		{	""/*"未使用19音"*/, 		"No.19 恋色マスタースパーク",				"霧雨 魔理沙のテーマです。",					},/* */
-		{	""/*"未使用20音"*/, 		"No.20 広有射怪鳥事 ～ Till When?", 		"妖夢のテーマです。",							},/* */
-		{	""/*"未使用21音"*/, 		"No.21 亡き王女の為のセプテット",			"レミリア・スカーレットのテーマです。", 		},/* */
-		{	""/*"未使用22音"*/, 		"No.22 U.N.オーエンは彼女なのか？", 		"フランドール・スカーレットのテーマです。", 	},/* */
-		{	""/*"未使用23音"*/, 		"No.23 少女綺想曲 ～ capriccio",			"博麗 霊夢のテーマです。",						},/* */ 	// Capriccio == 奇想曲(音楽用語,イタリア語), Un sogno capriccioso == 気まぐれな夢(イタリア語)
-		{	""/*"未使用24音"*/, 		"No.24 妖魔夜行",							"ルーミアのテーマです。",						},/* */
-		{	""/*"未使用25音"*/, 		"No.25 プレイヤーズスコア", 				"エンディングのテーマです。",					},/* */
-		{	""/*"未使用26音"*/, 		"No.26 無何有の郷 ～ Deep Mountain",		"道中曲です。", 								},/* */
-		{	""/*"未使用27音"*/, 		"No.27 妖々夢 ～ Snow or Cherry Petal", 	"タイトル画面のテーマです。",					},/* */
-		{	""/*"未使用28音"*/, 		"No.28 バッド・アップル ～ Bad Apple!!",	"道中曲です。", 								},/* */
-		{	""/*"未使用29音"*/, 		"No.29 永夜の報い", 						"使用してますが、本当は没曲です。", 			},/* */
-		{	""/*"未使用28音"*/, 		"No.30 死霊の夜桜", 						"使用してますが、本当は没曲です。", 			},/* */ /*("終了"で使う)*/
-		{	""/*"未使用27音"*/, 		"No.31 紅より儚い永遠", 					"名前入力画面のテーマです。",					},/* */
-		{	""/*"未使用27音"*/, 		"No.32 妖々跋扈",							"道中曲です。", 								},/* */
-		{	""/*"未使用28音"*/, 		"No.33 ブクレシュティの人形師", 			"道中曲です。", 								},/* */
+		{	"Shot", 				"Stop Music", 							"Silence is also good for bullets, isn't it?",					},/* */
+		{	"Menu Confirmation", 			"No.1 At the Harbor of Spring",							"Stage 1 thene.",							},/* */
+		{	"Menu Selection", 			"No.2 Romantic Children",			"Stage 2 theme.",							},/* */
+		{	"Boss Exit", 				"No.3 Voyage 1969",					"Stage 3 theme.",							},/* */
+		{	"Pichuun",				"No.4 Fall of Fall ~ Autumnal Waterfall",	"Stage 4 theme.",							},/* */
+		{	"Item Acquisition", 			"No.5 Voile, the Magic Library",					"Stage 5 theme.",							},/* */
+		{	"Increased",					"No.6 The Maid and The Pocket Watch of Blood",				"Stage 6 theme.",							},/* */
+		{	"My Card",				"No.7 Kid's Festival ~ Innocent Treasures",			"Staff Roll thene.", 				},/* */ 	// 夢違科学世紀「童祭 Innocent Treasures」
+		{	"Weak enemy defeated",				"No.8 Lunate Elf",					"A song for the journey.", 								},/* */
+		{	"Graze", 				"No.9 The Fantastic Legend of Tono",						"A song for the journey.", 								},/* */
+		{	"Time Limit", 				"No.10 Shanghai Teahouse ~ Chinese Tea", 		"A song for the journey.", 								},/* */
+		{	"Glittering ☆",				"No.11 Doll Judgement ~ The Girl Who Played with People's Shapes",		"Alice Margatroid's theme", 		},/* */
+		{	"Boss Shot 1",			"No.12 Complete Darkness",			"Mima's theme",							},/* */ 	// Complete Darkness
+		{	"Boss Shot 2",			"No.13 Flight of the Bamboo Cutter ~ Lunatic Princess",		"Kaguya Houraisan's theme",					},/* */
+		{	"Boss Shot 3",			"No.14 Wind God Girl",							"Aya Shameimaru's theme.",						},/* */
+		{	"Boss Shot 4",			"No.15 Locked Girl ~ The Girl's Secret Room",			"Patchouli Knowledge's theme.", 		},/* */
+		{	"Boss Shot 5",			"No.16 Lunar Clock ~ Luna Dial",			"Sakuya Izayoi's theme.",					},/* */
+		{	"Boss Charge 1",				"No.17 Beloved Tomboyish Girl",						"Cirno's theme", 						},/* */
+		{	""/*"未使用18音"*/, 		"No.18 Grimoire of Alice",				"Alice Margatroid's theme.", 		},/* */ 	// Grimoire of Alice
+		{	""/*"未使用19音"*/, 		"No.19 Love-coloured Master Spark",				"Marisa Kirisame's theme.",					},/* */
+		{	""/*"未使用20音"*/, 		"No.20 Hiroari Shoots a Strange Bird ~ Till When?", 		"Youmu Konpaku's theme.",							},/* */
+		{	""/*"未使用21音"*/, 		"No.21 Septette for a Dead Princess",			"Remilia Scarlet's thene.", 		},/* */
+		{	""/*"未使用22音"*/, 		"No.22 U.N. Owen Was Her?", 		"Flandre Scarlet's theme.", 	},/* */
+		{	""/*"未使用23音"*/, 		"No.23 Maiden's Capriccio ~ Capriccio",			"Reimu Hakurei's theme.",						},/* */ 	// Capriccio == 奇想曲(音楽用語,イタリア語), Un sogno capriccioso == 気まぐれな夢(イタリア語)
+		{	""/*"未使用24音"*/, 		"No.24 Apparitions Stalk the Night",							"Rumia's theme.",						},/* */
+		{	""/*"未使用25音"*/, 		"No.25 Player's Score", 				"Ending theme.",					},/* */
+		{	""/*"未使用26音"*/, 		"No.26 Paradise ~ Deep Mountain",		"A song for the journey.", 								},/* */
+		{	""/*"未使用27音"*/, 		"No.27 Mystical Dream ~ Snow or Cherry Petal", 	"Title screen theme",					},/* */
+		{	""/*"未使用28音"*/, 		"No.28 Bad Apple!!",	"A song for the journey.", 								},/* */
+		{	""/*"未使用29音"*/, 		"No.29 Retribution for the Eternal Night", 						"I'm using it, but it's actually a scrapped song.", 			},/* */
+		{	""/*"未使用28音"*/, 		"No.30 Night Sakura of Dead Spirits", 						"I'm using it, but it's actually a scrapped song.", 			},/* */ /*("終了"で使う)*/
+		{	""/*"未使用27音"*/, 		"No.31 An Eternity That is more Transient than Scarlet", 					"Name input screen theme。",					},/* */
+		{	""/*"未使用27音"*/, 		"No.32 Youkai Domination",							"A song for the journey.", 								},/* */
+		{	""/*"未使用28音"*/, 		"No.33 The Doll Maker of Bucuresti", 			"A song for the journey.", 								},/* */
 		// "起動用メッセージで(4行)必要"
-		{	"あれ？もうお帰りですか？", "まで創りました。", 						"", 											},/* */
-		{	"", 						"ようこそ幻想音樂室へ", 					"で該当BGMを作成すると鳴ります。",				},/* */
-		{	"", 						"BGMは全曲勝手にアレンジ版です。",			"", 											},/* */
-		{	"", 						"アレンジ版が嫌ならば、拡張子.ogg", 		"", 											},/* */
+		{	"Huh? Are you leaving already?", "I created it up to here.", 						"", 											},/* */
+		{	"", 						"Welcome to the Fantasy Music Room", 					"The corresponding BGM will play when created.",				},/* */
+		{	"", 						"All the BGM is my own arrangement.",			"", 											},/* */
+		{	"", 						"If you don't like the arranged version, try the .ogg extension.", 		"", 											},/* */
 	};
 	//
 	/*(色はとりあえず白)*/
@@ -364,19 +364,25 @@ static MAIN_CALL_FUNC(music_room_state_02_select_menu)
 				{
 					/* [[ メニュー ]] */
 				//	"0123456789"
-					"曲再生 #00",
-					"効果音 #00",
-					"終了      "
+					"Play Song #00",
+					"Sound Effect #00",
+					"Close      "
 				};
 				strcpy(my_font_text, (char *)const_aaa_str[sound_type]);
 				/* モード描画 */
 					/* 番号ボタン設定描画 */
-					if (2 > sound_type)/*0 or 1*/
-					{
-						int kinou_number;
-						kinou_number = music_room_setting[sound_type+SOUND_INDEX_00_BASE_CURSOR_01];
-						dec_print_format( ((kinou_number)), 2, (char *)&my_font_text[8]);
-					}
+{
+    int kinou_number;
+    kinou_number = music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01];
+
+    // Find where the '#' symbol is in the string
+    char *hash_pos = strchr(my_font_text, '#');
+    if (hash_pos)
+    {
+        // Place the number right after the '#'
+        dec_print_format(kinou_number, 2, hash_pos + 1);
+    }
+}
 					kanji_window_clear_line(ML_LINE_08);	/* 漢字ウィンドウの4行目(==3)の内容を消す。 */
 					set_kanji_xy((0)*(KANJI_FONT_08_HARF_WIDTH), (ML_LINE_08*18));	/* カーソルを4行目(==3)へ移動 */
 					kanji_color(7);
