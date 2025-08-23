@@ -382,7 +382,7 @@ static CARD_ADDRESS_RESOURCE my_card_resource[CARD_ADDRESS_MAX] __attribute__((a
 	{	s_hp(8),		s_time(40), 		"　　　　　　摘符「穎割大好評」" "\n",	SPELL_24_aya_doll,					NULL_keitai,				boss_move_03_x_douki,					},/*(4)"岐符「未作成カード002」"*/
 	{	s_hp(8),		s_time(40), 		"　　　　　風説「穎割大根被害」" "\n",	SPELL_24_aya_doll,					NULL_keitai,				boss_move_03_x_douki,					},/*(4)"岐符「未作成カード002」"*/
 	{	s_hp(8),		s_time(40), 		"　　　　　　過剰「山葵大被害」" "\n",	SPELL_24_aya_doll,					NULL_keitai,				boss_move_03_x_douki,					},/*(4)"岐符「未作成カード002」"*/
-	{	s_hp(8),		s_time(40), 		"　　　　　大量「麦酒十\升呑過」" "\n", SPELL_24_aya_doll,					NULL_keitai,				boss_move_03_x_douki,					},/*(4)"岐符「未作成カード002」"*/
+	{	s_hp(8),		s_time(40), 		"　　　　　大量「麦酒十升呑過」" "\n", SPELL_24_aya_doll,					NULL_keitai,				boss_move_03_x_douki,					},/*(4)"岐符「未作成カード002」"*/
 	//	2.0
 	{	s_hp(12),		s_time(66), 		"　　　　　　　実況「風速３Ｍ」" "\n",	SPELL_r34_GOKAN_KINOU,				init_48_r34_gokan_kinou,	boss_move_13_aya_taifu, 				},/*(5)"岐符「未作成カード003」"*/
 	{	s_hp(14),		s_time(77), 		"　　　　　　実況「風速３３Ｍ」" "\n",	SPELL_r34_GOKAN_KINOU,				init_48_r34_gokan_kinou,	boss_move_13_aya_taifu, 				},/*(5)"岐符「未作成カード003」"*/

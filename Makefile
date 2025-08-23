@@ -106,10 +106,10 @@ else
 	# 1 == signed version (worked ok with cfw5.00m33-6)
 	# Add a signature so it can be started with the official FW.
 	## Encrypt.
-	ENCRYPT = 1
+	ENCRYPT = 0
 	# (???) Build *.prx instead of EBOOT.PBP. (Required if ENCRYPT = 1???)
 	## Build with PRX. (Do not build with EBOOT.PBP)
-	BUILD_PRX = 1
+	BUILD_PRX = 0
 	# Use in src/game_core/bootmain.c.
 	CORE_CFLAGS += -DAPP_SYOMEI_OFW=1
 endif
