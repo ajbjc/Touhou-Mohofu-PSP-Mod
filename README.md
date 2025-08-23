@@ -18,4 +18,7 @@ Copy the data folder and the newly built EBOOT.PBP file to the PSP/GAME folder i
 
 When running in PPSSPP, under the Graphics settings, set Backend to OpenGL, and turn Software rendering on, otherwise many of the assets will not appear.
 
-When running on a real PSP, a bright, glitchy looking screen will appear for about a second before the game loads. I am not sure what causes this. Make sure to check the Makefile configuration to make sure it's setup for your PSP and firmware.
+# Issues
+
+- When running on a real PSP, a bright, glitchy looking screen will appear for about a second before the game loads. I am not sure what causes this. Make sure to check the Makefile configuration to make sure it's setup for your PSP and firmware.
+- Currently, some song titles get cut off in the music room due to their length. At the moment, the music room uses 8 lines: line 1 for title of current song selected, lines 2-6 for displaying a scripture list, line 7 for a description, and line 8 for misc info. A new line could potentially be inserted directly underneath line 1 to split the song title in two. However, how to implement this is not currently known.
