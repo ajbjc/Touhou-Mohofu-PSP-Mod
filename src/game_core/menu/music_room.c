@@ -71,7 +71,7 @@ static void music_room_draw_message(unsigned int cursor1, unsigned int cursor2)
 		{	"Boss Exit", 				"No.3 Voyage 1969",					"Stage 3 theme.",							},/* */
 		{	"Pichuun",				"No.4 Fall of Fall ~ Autumnal Waterfall",	"Stage 4 theme.",							},/* */
 		{	"Item Acquisition", 			"No.5 Voile, the Magic Library",					"Stage 5 theme.",							},/* */
-		{	"Increased",					"No.6 The Maid and The Pocket Watch of Blood",				"Stage 6 theme.",							},/* */
+		{	"Increased",					"No.6 The Maid and The Pocket\n     Watch of Blood",				"Stage 6 theme.",							},/* */
 		{	"My Card",				"No.7 Kid's Festival ~ Innocent Treasures",			"Staff Roll thene.", 				},/* */ 	// 夢違科学世紀「童祭 Innocent Treasures」
 		{	"Weak enemy defeated",				"No.8 Lunate Elf",					"A song for the journey.", 								},/* */
 		{	"Graze", 				"No.9 The Fantastic Legend of Tono",						"A song for the journey.", 								},/* */
@@ -107,60 +107,80 @@ static void music_room_draw_message(unsigned int cursor1, unsigned int cursor2)
 	};
 	//
 	/*(色はとりあえず白)*/
-	{
-		unsigned int jj;
-		jj = (music_room_setting[sound_type+SOUND_INDEX_04_BASE_CURSOR_02]);
-		unsigned int ii;
-		unsigned int yyy18;
-		yyy18 = (0);/* Y位置 */
-		for (ii=0; ii<(7); ii++) /* 7 行描画(8行目は使わない) */
-		{
-			kanji_window_clear_line(ii);	/* 漢字ウィンドウの4行目(==3)の内容を消す。 */
-			set_kanji_xy((0)*(KANJI_FONT_08_HARF_WIDTH), (yyy18));	/* カーソルを4行目(==3)へ移動 */
-		//	if (0==cursor1)/* BGMモード */
-			if (2 > cursor1)/* 0:BGMモード & 1:効果音モード */
-			{
-				if (0==ii)	/* 1行目のみ(0) */
-				{	/*(見だし行)*/
-					kanji_color((9)|STR_CODE_NO_ENTER);
-					strcpy(my_font_text, (char *)const_kaisetu_str[cursor2][(/*ii+*/1-cursor1)]);
-				}
-				else
-				if (ii<6)	/* 23456行目のみ(1,2,3,4,5) */
-				{	/*(スクロール行)*/
-					if ((cursor2)==(jj))
-					{
-						kanji_color((9)|STR_CODE_NO_ENTER);
-					}
-					else
-					{
-						kanji_color((8)|STR_CODE_NO_ENTER);
-					}
-					strcpy(my_font_text, (char *)const_kaisetu_str[jj][(/*ii+*/1-cursor1)]);
-					jj += (1);
-				}
-				else/* 7行目のみ(6) */
-				{	/*(解説行)*/
-					kanji_color((7)|STR_CODE_NO_ENTER);
-					strcpy(my_font_text, (char *)const_kaisetu_str[cursor2][(2/*ii+1-4*/-cursor1-cursor1)]);		/* 効果音モード の場合しょーがないから見出しと同じ解説 */
-				}
-			}
-			else/* 2:終了モード、のみ(r35u2) */
-			{
-				kanji_color((9)|STR_CODE_NO_ENTER);
-				if (0==ii)	/* 1行目のみ */
-				{	/*(見だし行終了メッセージ)*/
-					strcpy(my_font_text, (char *)const_kaisetu_str[/*33*/(MOJI_34_MAX)/*cursor2*/][0]);
-				}
-				else	/* 残り(2-7行目)を消す。 */
-				{
-					strcpy(my_font_text, (char *)"");
-				}
-			}
+	    {
+        unsigned int jj;
+        jj = (music_room_setting[sound_type + SOUND_INDEX_04_BASE_CURSOR_02]);
+        unsigned int ii;
+        unsigned int yyy18;
+        yyy18 = (0); /* Y位置 */
+        for (ii = 0; ii < (8); ii++) /* 7 行描画(8行目は使わない) */ {
+            kanji_window_clear_line(ii);
+            set_kanji_xy((0) * (KANJI_FONT_08_HARF_WIDTH), (yyy18));
+
+            if (2 > cursor1) /* 0:BGMモード & 1:効果音モード */ {
+                if (0 == ii || 1 == ii) /* 1行目または2行目 */ {
+                    const char * src = const_kaisetu_str[cursor2][1 - cursor1];
+                    const char * nl = strchr(src, '\n');
+                    kanji_color((9) | STR_CODE_NO_ENTER);
+
+                    if (!nl) {
+                        /* 改行が無い場合は1行目のみ表示（トリミング付き） */
+                        if (ii == 0) {
+                            strncpy(my_font_text, src, 40);
+                            my_font_text[40] = '\0';
+                        } else {
+                            /* 2行目は空にする */
+                            strcpy(my_font_text, "");
+                        }
+                    } else {
+                        if (ii == 0) {
+                            /* 改行前部分 */
+                            size_t len1 = nl - src;
+                            if (len1 > 40) len1 = 40;
+                            strncpy(my_font_text, src, len1);
+                            my_font_text[len1] = '\0';
+                        } else {
+                            /* 改行後部分 */
+                            strncpy(my_font_text, nl + 1, 40);
+                            my_font_text[40] = '\0';
+                        }
+                    }
+                } else if (ii >= 2 && ii <= 6) /* リスト行 (旧 2?6行目) */ {
+                    if (cursor2 == jj)
+                        kanji_color((9) | STR_CODE_NO_ENTER);
+                    else
+                        kanji_color((8) | STR_CODE_NO_ENTER);
+
+                    /* リストでは改行をスペースに置換 */
+                    strcpy(my_font_text, const_kaisetu_str[jj][1 - cursor1]);
+                    char * p = strchr(my_font_text, '\n');
+                    if (p) * p = ' ';
+
+                    /* タイトル長過ぎたらトリミング */
+                    if ((int) strlen(my_font_text) > 40)
+                        my_font_text[40] = '\0';
+
+                    jj += 1;
+                } else /* 解説行 */ {
+                    kanji_color((7) | STR_CODE_NO_ENTER);
+                    strcpy(my_font_text,
+                        (char * ) const_kaisetu_str[cursor2][2 - cursor1 - cursor1]);
+                }
+            } else /* 終了モード */ {
+                kanji_color((9) | STR_CODE_NO_ENTER);
+                if (0 == ii) {
+                    strcpy(my_font_text,
+                        (char * ) const_kaisetu_str[(MOJI_34_MAX)][0]);
+                } else {
+                    strcpy(my_font_text, "");
+                }
+            }
+			
 			kanji_draw();
-			yyy18 += (18);
-		}
-	}
+            yyy18 += (18);
+        }
+
+    }
 }
 #if 0
 global void music_game_draw_message(int cursor1)
@@ -259,139 +279,120 @@ static void up_down_allow_key_auto_repeat(void)
 
 static MAIN_CALL_FUNC(music_room_state_02_select_menu)
 {
-	psp_pop_screen();
-	cg.msg_time = /*(永遠に描画)*/byou60(5);	/* 約 5 秒 */
-	//
-	up_down_allow_key_auto_repeat();
-	if (0==psp_pad.pad_data_alter)/* さっき何も押されてなかった場合にキーチェック(原作準拠) */
-	{
-		if (psp_pad.pad_data & PSP_KEY_LEFT)			/* 左ボタン入力 */
-		{
-			if (SOUND_TYPE_00_BGM == sound_type)		{	sound_type = (SOUND_TYPE_03_MAX-1); }
-			else										{	sound_type--;	}
-		}
-		else
-		if (psp_pad.pad_data & PSP_KEY_RIGHT)			/* 右ボタン入力 */
-		{
-			if ((SOUND_TYPE_03_MAX-1) == sound_type)	{	sound_type = SOUND_TYPE_00_BGM; }
-			else										{	sound_type++;	}
-		}
-		else	/* 左右以外の通常処理(斜め入力を排除する為、左右の入力があった場合はそれ以外の処理をしない) */
-		{
-			if (SOUND_TYPE_02_QUIT == sound_type) /* 項目[ QUIT ] を選んでいる場合 */
-			{
-				if (psp_pad.pad_data & (PSP_KEY_SHOT_OK|PSP_KEY_BOMB_CANCEL))	/* ショット || キャンセルボタン入力 */
-				{
-					#if (1)
-					voice_play_menu(VOICE04_SHIP_HAKAI, TRACK02_MENU02/*TRACK01_MENU01*/);/* 自機死に音は、なるべく重ねない */
-				//	voice_play(VOICE02_MENU_SELECT, TRACK01_MENU01);/*テキトー*/
-					#endif
-				//	pl ay_music_num(BGM_27_menu01);
-					my_file_common_name[0] = BG_TYPE_00_title_bg;psp_load_bg_file_name();/* 裏画面にロード */
-					cg.msg_time = (0);	/* 約 0 秒 */
-//					bg_alpha_aaa		= 255;
-					bg_alpha_aaa		= 0;
-					cb.main_call_func = music_room_state_03_fade_out;
-				}
-			}
-			else	/* 設定項目を変更する場合 */
-			if (psp_pad.pad_data & (PSP_KEY_UP|PSP_KEY_DOWN))		/* 上下ボタン入力 */
-			{
-				if (psp_pad.pad_data & PSP_KEY_UP)			/* 上ボタン入力 */
-				{
-					music_room_setting[sound_type+SOUND_INDEX_00_BASE_CURSOR_01]--;
-					if ((music_room_setting[sound_type+SOUND_INDEX_04_BASE_CURSOR_02]) > music_room_setting[sound_type+SOUND_INDEX_00_BASE_CURSOR_01])
-					{
-						music_room_setting[sound_type+SOUND_INDEX_04_BASE_CURSOR_02]--;
-					}
-					if ((0/*MOJI_00*/) > music_room_setting[sound_type+SOUND_INDEX_00_BASE_CURSOR_01])
-					{
-						music_room_setting[sound_type+SOUND_INDEX_00_BASE_CURSOR_01]	= music_room_setting[SOUND_INDEX_02_BASE_MAX_NUM+sound_type];	/*(BGMの最大数)*/	/*(効果音の最大数)*/
-						music_room_setting[sound_type+SOUND_INDEX_04_BASE_CURSOR_02] = (music_room_setting[sound_type+SOUND_INDEX_00_BASE_CURSOR_01])-(4);
-					}
-				}
-				else
-				if (psp_pad.pad_data & PSP_KEY_DOWN)		/* 下ボタン入力 */
-				{
-					music_room_setting[sound_type+SOUND_INDEX_00_BASE_CURSOR_01]++;
-					if ((music_room_setting[sound_type+SOUND_INDEX_04_BASE_CURSOR_02]+4) < music_room_setting[sound_type+SOUND_INDEX_00_BASE_CURSOR_01])
-					{
-						music_room_setting[sound_type+SOUND_INDEX_04_BASE_CURSOR_02]++;
-					}
-					if (music_room_setting[sound_type+SOUND_INDEX_02_BASE_MAX_NUM] < music_room_setting[sound_type+SOUND_INDEX_00_BASE_CURSOR_01])
-					{
-						music_room_setting[sound_type+SOUND_INDEX_00_BASE_CURSOR_01] = (0)/*MOJI_00*/;
-						music_room_setting[sound_type+SOUND_INDEX_04_BASE_CURSOR_02] = (0);
-					}
-				}
-			}
-			else	/* 設定項目を変更する場合 */
-			if (psp_pad.pad_data & PSP_KEY_SHOT_OK) /* ショットボタン入力 */
-			{
-				if (SOUND_TYPE_00_BGM == sound_type)	/* 項目[ BGM ] を選んでいる場合 */
-				{
-					#if (1)/*(-r38までと互換させるなら有効にする)*/
-					play_music_num(BGM_00_stop);/*(r39では一度止めないと同じ曲は始めから鳴らない様に仕様変更した)*/
-					/*(別に無くても構わない気もするが、あくまで曲再生の「テストモード」なのだから、始めから鳴らした方が良い。)*/
-					/*(「テストモード」が(存在する事が)「主(目的)」で、曲再生が「従(結果)」。)*/
-					#endif
-					play_music_num(music_room_setting[sound_type+SOUND_INDEX_00_BASE_CURSOR_01]/*BGM_05_stage5*/);
-				}
-				else
-//				if (SOUND_TYPE_01_SOUND == sound_type)	/* 項目[ SOUND ] を選んでいる場合 */
-				{
-					#if (1)
-					voice_play_menu(music_room_setting[sound_type+SOUND_INDEX_00_BASE_CURSOR_01]/*VOICE07_BOMB*/, TRACK01_MENU01);/*テキトー*/
-					#endif
-				}
-			}
-			else	/* 設定項目を変更する場合 */
-			if (psp_pad.pad_data & PSP_KEY_BOMB_CANCEL) /* キャンセルボタン入力 */
-			{
-				play_music_num(BGM_00_stop);
-			}
-		}
-		if (psp_pad.pad_data & (PSP_KEY_UP|PSP_KEY_DOWN|PSP_KEY_LEFT|PSP_KEY_RIGHT))	/* 上下左右ボタン入力 */
-		{
-			/* 再描画 */
-			music_room_draw_message(sound_type, music_room_setting[sound_type+SOUND_INDEX_00_BASE_CURSOR_01]);
-			/* 描画 */
-			{
-				/* 機能番号の描画 */
-				#define MAX_MENU_02 			(SOUND_TYPE_02_QUIT)
-				{
-				static const char *const_aaa_str[(3)] =
-				{
-					/* [[ メニュー ]] */
-				//	"0123456789"
-					"Play Song #00",
-					"Sound Effect #00",
-					"Close      "
-				};
-				strcpy(my_font_text, (char *)const_aaa_str[sound_type]);
-				/* モード描画 */
-					/* 番号ボタン設定描画 */
-{
-    int kinou_number;
-    kinou_number = music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01];
+    psp_pop_screen();
+    cg.msg_time = /*(永遠に描画)*/ byou60(5); /* 約 5 秒 */
+    //
+    up_down_allow_key_auto_repeat();
+    if (0 == psp_pad.pad_data_alter) /* さっき何も押されてなかった場合にキーチェック(原作準拠) */ {
+        if (psp_pad.pad_data & PSP_KEY_LEFT) /* 左ボタン入力 */ {
+            if (SOUND_TYPE_00_BGM == sound_type) {
+                sound_type = (SOUND_TYPE_03_MAX - 1);
+            } else {
+                sound_type--;
+            }
+        } else
+        if (psp_pad.pad_data & PSP_KEY_RIGHT) /* 右ボタン入力 */ {
+            if ((SOUND_TYPE_03_MAX - 1) == sound_type) {
+                sound_type = SOUND_TYPE_00_BGM;
+            } else {
+                sound_type++;
+            }
+        } else /* 左右以外の通常処理(斜め入力を排除する為、左右の入力があった場合はそれ以外の処理をしない) */ {
+            if (SOUND_TYPE_02_QUIT == sound_type) /* 項目[ QUIT ] を選んでいる場合 */ {
+                if (psp_pad.pad_data & (PSP_KEY_SHOT_OK | PSP_KEY_BOMB_CANCEL)) /* ショット || キャンセルボタン入力 */ {
+                    #if(1)
+                    voice_play_menu(VOICE04_SHIP_HAKAI, TRACK02_MENU02 /*TRACK01_MENU01*/ ); /* 自機死に音は、なるべく重ねない */
+                    //	voice_play(VOICE02_MENU_SELECT, TRACK01_MENU01);/*テキトー*/
+                    #endif
+                    //	pl ay_music_num(BGM_27_menu01);
+                    my_file_common_name[0] = BG_TYPE_00_title_bg;
+                    psp_load_bg_file_name(); /* 裏画面にロード */
+                    cg.msg_time = (0); /* 約 0 秒 */
+                    //					bg_alpha_aaa		= 255;
+                    bg_alpha_aaa = 0;
+                    cb.main_call_func = music_room_state_03_fade_out;
+                }
+            } else /* 設定項目を変更する場合 */
+                if (psp_pad.pad_data & (PSP_KEY_UP | PSP_KEY_DOWN)) /* 上下ボタン入力 */ {
+                    if (psp_pad.pad_data & PSP_KEY_UP) /* 上ボタン入力 */ {
+                        music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01]--;
+                        if ((music_room_setting[sound_type + SOUND_INDEX_04_BASE_CURSOR_02]) > music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01]) {
+                            music_room_setting[sound_type + SOUND_INDEX_04_BASE_CURSOR_02]--;
+                        }
+                        if ((0 /*MOJI_00*/ ) > music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01]) {
+                            music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01] = music_room_setting[SOUND_INDEX_02_BASE_MAX_NUM + sound_type]; /*(BGMの最大数)*/ /*(効果音の最大数)*/
+                            music_room_setting[sound_type + SOUND_INDEX_04_BASE_CURSOR_02] = (music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01]) - (4);
+                        }
+                    } else
+                    if (psp_pad.pad_data & PSP_KEY_DOWN) /* 下ボタン入力 */ {
+                        music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01]++;
+                        if ((music_room_setting[sound_type + SOUND_INDEX_04_BASE_CURSOR_02] + 4) < music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01]) {
+                            music_room_setting[sound_type + SOUND_INDEX_04_BASE_CURSOR_02]++;
+                        }
+                        if (music_room_setting[sound_type + SOUND_INDEX_02_BASE_MAX_NUM] < music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01]) {
+                            music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01] = (0) /*MOJI_00*/ ;
+                            music_room_setting[sound_type + SOUND_INDEX_04_BASE_CURSOR_02] = (0);
+                        }
+                    }
+                }
+            else /* 設定項目を変更する場合 */
+                if (psp_pad.pad_data & PSP_KEY_SHOT_OK) /* ショットボタン入力 */ {
+                    if (SOUND_TYPE_00_BGM == sound_type) /* 項目[ BGM ] を選んでいる場合 */ {
+                        #if(1) /*(-r38までと互換させるなら有効にする)*/
+                        play_music_num(BGM_00_stop); /*(r39では一度止めないと同じ曲は始めから鳴らない様に仕様変更した)*/
+                        /*(別に無くても構わない気もするが、あくまで曲再生の「テストモード」なのだから、始めから鳴らした方が良い。)*/
+                        /*(「テストモード」が(存在する事が)「主(目的)」で、曲再生が「従(結果)」。)*/
+                        #endif
+                        play_music_num(music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01] /*BGM_05_stage5*/ );
+                    } else
+                    //				if (SOUND_TYPE_01_SOUND == sound_type)	/* 項目[ SOUND ] を選んでいる場合 */
+                    {
+                        #if(1)
+                        voice_play_menu(music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01] /*VOICE07_BOMB*/ , TRACK01_MENU01); /*テキトー*/
+                        #endif
+                    }
+                }
+            else /* 設定項目を変更する場合 */
+                if (psp_pad.pad_data & PSP_KEY_BOMB_CANCEL) /* キャンセルボタン入力 */ {
+                    play_music_num(BGM_00_stop);
+                }
+        }
+        if (psp_pad.pad_data & (PSP_KEY_UP | PSP_KEY_DOWN | PSP_KEY_LEFT | PSP_KEY_RIGHT)) /* 上下左右ボタン入力 */ {
+            /* 再描画 */
+            music_room_draw_message(sound_type, music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01]);
+            /* 描画 */
+            {
+                /* 機能番号の描画 */
+                #define MAX_MENU_02(SOUND_TYPE_02_QUIT) {
+                    static const char* const_aaa_str[(3)] = {
+                        /* [[ メニュー ]] */
+                        //	"0123456789"
+                        "Song Playback #00",
+                        "Sound Effect #00",
+						"Close      "
+                    };
+                    strcpy(my_font_text, (char*)const_aaa_str[sound_type]);
+                    /* モード描画 */
+                    /* 番号ボタン設定描画 */
+                    {
+                        int kinou_number;
+                        kinou_number = music_room_setting[sound_type + SOUND_INDEX_00_BASE_CURSOR_01];
 
-    // Find where the '#' symbol is in the string
-    char *hash_pos = strchr(my_font_text, '#');
-    if (hash_pos)
-    {
-        // Place the number right after the '#'
-        dec_print_format(kinou_number, 2, hash_pos + 1);
+                        // Find where the '#' symbol is in the string
+                        char * hash_pos = strchr(my_font_text, '#');
+                        if (hash_pos) {
+                            // Place the number right after the '#'
+                            dec_print_format(kinou_number, 2, hash_pos + 1);
+                        }
+                    }
+					kanji_window_clear_line(ML_LINE_09);	/* 漢字ウィンドウの4行目(==3)の内容を消す。 */
+					set_kanji_xy((160), (ML_LINE_08*18));	/* カーソルを4行目(==3)へ移動 */
+                    kanji_color(7);
+                    kanji_draw();
+                }
+            }
+        }
     }
-}
-					kanji_window_clear_line(ML_LINE_08);	/* 漢字ウィンドウの4行目(==3)の内容を消す。 */
-					set_kanji_xy((0)*(KANJI_FONT_08_HARF_WIDTH), (ML_LINE_08*18));	/* カーソルを4行目(==3)へ移動 */
-					kanji_color(7);
-					kanji_draw();
-				}
-			}
-		}
-	}
-}
 
 
 /*---------------------------------------------------------
@@ -429,19 +430,33 @@ global MAIN_CALL_FUNC(music_room_start)
 //
 	sound_type			= SOUND_TYPE_02_QUIT;
 	bg_alpha_aaa		= (0);
-	set_kanji_origin_xy(24, 100);/*(表示原点の設定)*/
+	set_kanji_origin_xy(24,100);/*(表示原点の設定)*/
 	set_kanji_origin_kankaku(19);/*(字間を少し広げる)*/
 	//
 	set_kanji_hide_line(ML_LINE_99_MAX);/*(全行表示する。)*/
 	{
 		/* 1行目のみ特殊な位置へ移動。 */
-		ml_font[ML_LINE_01].x		= (0);/* X位置 */
-		ml_font[ML_LINE_01].y		= (64);/* Y位置 */
+		ml_font[ML_LINE_01].x = (0); /* X位置 */
+		ml_font[ML_LINE_01].y = (64); /* Y位置 */
 	}
 	{
-		/* 8行目のみ特殊な位置へ移動。 */
-		ml_font[ML_LINE_08].x		= (160);/* X位置 */
-		ml_font[ML_LINE_08].y		= (240);/* Y位置 */
+		/* 2行目 = 曲タイトル2行目（必要なら使用） */
+		ml_font[ML_LINE_02].x = (0);
+		ml_font[ML_LINE_02].y = (82);
+	}
+	{
+		/*2行目 = 曲タイトル2行目（必要なら使用)*/
+	/*	ml_font[ML_LINE_03].y = (108);
+		ml_font[ML_LINE_04].y = (126);
+		ml_font[ML_LINE_05].y = (144);
+		ml_font[ML_LINE_06].y = (162);
+		ml_font[ML_LINE_07].y = (180);
+		ml_font[ML_LINE_08].y = (198); */
+	}
+	{
+		/* 9行目のみ特殊な位置へ移動。 */
+		ml_font[ML_LINE_09].x = (160); /* X位置 */
+		ml_font[ML_LINE_09].y = (240); /* Y位置 */
 	}
 	kanji_window_all_clear();	/* 漢字画面を全行消す。漢字カーソルをホームポジションへ移動。 */
 	cg.msg_time = (65536);		/* 約 18 分 */

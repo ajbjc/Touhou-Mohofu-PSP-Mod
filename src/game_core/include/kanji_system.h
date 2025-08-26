@@ -83,6 +83,7 @@ enum
 	ML_LINE_06, 	// 5 == 6行目
 	ML_LINE_07, 	// 6 == 7行目
 	ML_LINE_08, 	// 7 == 8行目
+    ML_LINE_09,     // 8 == 9行目
 	ML_LINE_99_MAX/*(2^nの最大行)*/
 };
 
